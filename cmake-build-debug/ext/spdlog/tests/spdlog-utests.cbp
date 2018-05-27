@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="spdlog-utests"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\cmake\;CMake Files\ext\;CMake Files\ext\glfw\;CMake Files\ext\glfw\CMake\;CMake Files\ext\glfw\CMake\modules\;CMake Files\ext\glfw\src\;CMake Files\ext\glfw\examples\;CMake Files\ext\glfw\tests\;CMake Files\ext\physfs\;CMake Files\ext\physfs\extras\;CMake Files\ext\spdlog\;CMake Files\ext\spdlog\cmake\;CMake Files\ext\spdlog\tests\;CMake Files\library\;CMake Files\editor\;CMake Files\examples\;CMake Files\examples\helloworld\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake-build-debug/ext/spdlog/tests"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake-build-debug/ext/spdlog/tests/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="D:/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake-build-debug/ext/spdlog/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake-build-debug/ext/spdlog/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake-build-debug/ext/spdlog/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="spdlog-utests">
+				<Option output="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake-build-debug/bin/spdlog-utests.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake-build-debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/spdlog/include"/>
+					<Add directory="D:/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../include/c++/7.3.0"/>
+					<Add directory="D:/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../include/c++/7.3.0/x86_64-w64-mingw32"/>
+					<Add directory="D:/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../include/c++/7.3.0/backward"/>
+					<Add directory="D:/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/include"/>
+					<Add directory="D:/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../include"/>
+					<Add directory="D:/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed"/>
+					<Add directory="D:/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake-build-debug/ext/spdlog/tests/Makefile&quot;  VERBOSE=1 spdlog-utests"/>
+					<CompileFile command="D:/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake-build-debug/ext/spdlog/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake-build-debug/ext/spdlog/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake-build-debug/ext/spdlog/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="spdlog-utests/fast">
+				<Option output="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake-build-debug/bin/spdlog-utests.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake-build-debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/spdlog/include"/>
+					<Add directory="D:/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../include/c++/7.3.0"/>
+					<Add directory="D:/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../include/c++/7.3.0/x86_64-w64-mingw32"/>
+					<Add directory="D:/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../include/c++/7.3.0/backward"/>
+					<Add directory="D:/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/include"/>
+					<Add directory="D:/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../include"/>
+					<Add directory="D:/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed"/>
+					<Add directory="D:/MSYS2/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake-build-debug/ext/spdlog/tests/Makefile&quot;  VERBOSE=1 spdlog-utests/fast"/>
+					<CompileFile command="D:/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake-build-debug/ext/spdlog/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake-build-debug/ext/spdlog/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/MSYS2/mingw64/bin/mingw32-make.exe -f &quot;D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake-build-debug/ext/spdlog/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/spdlog/tests/errors.cpp">
+			<Option target="spdlog-utests"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/spdlog/tests/file_helper.cpp">
+			<Option target="spdlog-utests"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/spdlog/tests/file_log.cpp">
+			<Option target="spdlog-utests"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/spdlog/tests/includes.h">
+			<Option target="spdlog-utests"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/spdlog/tests/main.cpp">
+			<Option target="spdlog-utests"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/spdlog/tests/registry.cpp">
+			<Option target="spdlog-utests"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/spdlog/tests/test_async.cpp">
+			<Option target="spdlog-utests"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/spdlog/tests/test_macros.cpp">
+			<Option target="spdlog-utests"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/spdlog/tests/test_misc.cpp">
+			<Option target="spdlog-utests"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/spdlog/tests/test_pattern_formatter.cpp">
+			<Option target="spdlog-utests"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/spdlog/tests/utils.cpp">
+			<Option target="spdlog-utests"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/spdlog/tests/utils.h">
+			<Option target="spdlog-utests"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake/buildnumber.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/cmake/version.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ext\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/glfw/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ext\glfw\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/glfw/cmake_uninstall.cmake.in">
+			<Option virtualFolder="CMake Files\ext\glfw\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/glfw/CMake/modules/FindVulkan.cmake">
+			<Option virtualFolder="CMake Files\ext\glfw\CMake\modules\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/glfw/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ext\glfw\src\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/glfw/src/glfw3.pc.in">
+			<Option virtualFolder="CMake Files\ext\glfw\src\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/glfw/src/glfw3Config.cmake.in">
+			<Option virtualFolder="CMake Files\ext\glfw\src\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/glfw/src/glfw_config.h.in">
+			<Option virtualFolder="CMake Files\ext\glfw\src\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/glfw/examples/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ext\glfw\examples\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/glfw/tests/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ext\glfw\tests\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/physfs/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ext\physfs\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/physfs/extras/physfs.pc.in">
+			<Option virtualFolder="CMake Files\ext\physfs\extras\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/spdlog/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ext\spdlog\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/spdlog/cmake/spdlog.pc.in">
+			<Option virtualFolder="CMake Files\ext\spdlog\cmake\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/ext/spdlog/tests/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ext\spdlog\tests\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/library/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\library\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/editor/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\editor\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/examples/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\examples\"/>
+		</Unit>
+		<Unit filename="D:/Development/c++/CrossEngineDevelopment/CrossEngine2.0/examples/helloworld/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\examples\helloworld\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
