@@ -40,7 +40,7 @@ namespace CrossEngine {
 
             CrossEngineAPI int Entry(int argc, const char**argv);
 
-            CrossEngineAPI void Exit();
+            CrossEngineAPI virtual void Exit();
 
             CrossEngineAPI virtual int MainLoop();
 

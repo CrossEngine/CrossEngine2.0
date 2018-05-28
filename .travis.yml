@@ -1,0 +1,61 @@
+language: cpp
+cache:
+- ccache
+matrix:
+  include:
+  - os: linux
+    sudo: required
+    dist: trusty
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - g++-7
+        - xorg-dev
+        - libx11-dev
+        - libxrandr2
+        - libxrandr-dev
+        - libxrender-dev
+        - x11proto-randr-dev
+        - x11-xserver-utils
+        - mercurial
+    env:
+    - MATRIX_EVAL="CC=\"gcc-7 -pthread\" && CXX=\"g++-7 -pthread\""
+  - os: linux
+    sudo: required
+    dist: trusty
+    addons:
+      apt:
+        sources:
+        - llvm-toolchain-trusty-5.0
+        packages:
+        - clang-5.0
+        - xorg-dev
+        - libx11-dev
+        - libxrandr2
+        - libxrandr-dev
+        - libxrender-dev
+        - x11proto-randr-dev
+        - x11-xserver-utils
+        - mercurial
+    env:
+    - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+  - os: osx
+    osx_image: xcode9.3beta
+    env:
+    - MATRIX_EVAL="brew install ccache && CC=gcc && CXX=g++"
+  - os: osx
+    osx_image: xcode9.2
+    env:
+    - MATRIX_EVAL="brew install ccache && CC=gcc && CXX=g++"
+before_install:
+- eval "${MATRIX_EVAL}"
+install:
+- export PATH="/usr/local/opt/ccache/libexec:$PATH"
+before_script:
+- mkdir cmake-build-debug
+- cd cmake-build-debug
+- cmake -DCMAKE_BUILD_TYPE=Debug -G "Unix Makefiles" ../
+script:
+- cmake --build . --target ExamplesAll -- -j8
