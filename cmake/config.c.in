@@ -1,0 +1,25 @@
+/**************************************************************
+ * Program Title: CrossEngine
+ * Filename: Application.cpp
+ * Author: Blake Rogan
+ * Last modified: 27/05/2018
+ * Description:
+ * Copyright: CrossEngine (c) 2018
+ ***************************************************************/
+#include <CrossEngine/config.h>
+
+unsigned int GetVersionMajor() {
+    return @CrossEngine_VERSION_MAJOR@;
+}
+
+unsigned int GetVersionMinor() {
+    return @CrossEngine_VERSION_MINOR@;
+}
+
+unsigned int GetVersionPatch() {
+    return @CrossEngine_VERSION_PATCH@;
+}
+
+unsigned int GetVersionBuild() {
+    return @CrossEngine_VERSION_BUILD@;
+}
