@@ -17,7 +17,7 @@
 namespace CrossEngine {
     namespace Logging {
 
-        typedef Util::Memory::Shared<spdlog::logger> SharedLogger;
+        typedef std::shared_ptr<spdlog::logger> SharedLogger;
 
         typedef Util::Containers::Vector<spdlog::sink_ptr> SinksVector;
 

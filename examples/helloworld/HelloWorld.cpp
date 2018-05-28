@@ -10,7 +10,12 @@
 
 IMPLEMENT_APPLICATION(HelloWorld);
 
-int HelloWorld::MainLoop(int argc, const char **argv) {
+int HelloWorld::MainLoop() {
     log->info("Hello World");
-    return Application::MainLoop(argc, argv);
+    return Application::MainLoop();
+}
+
+void HelloWorld::Exit() {
+    log->info("Shutdown");
+    Application::Exit();
 }

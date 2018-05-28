@@ -1,0 +1,39 @@
+/**************************************************************
+ * Program Title: CrossEngine
+ * Filename: config.h
+ * Author: Blake Rogan
+ * Last modified: 27/05/2018
+ * Description:
+ * Copyright: CrossEngine (c) 2018
+ ***************************************************************/
+#ifndef CROSSENGINE_CONFIG_H
+#define CROSSENGINE_CONFIG_H
+
+#define CrossEngine_VERSION_MAJOR @CrossEngine_VERSION_MAJOR@
+#define CrossEngine_VERSION_MINOR @CrossEngine_VERSION_MINOR@
+#define CrossEngine_VERSION_PATCH @CrossEngine_VERSION_PATCH@
+#define CrossEngine_VERSION_BUILD @CrossEngine_VERSION_BUILD@
+
+#if defined (_WIN32)
+#if defined(CrossEngine_Library_Exports)
+#define  CrossEngineAPI __declspec(dllexport)
+#else
+#define  CrossEngineAPI __declspec(dllimport)
+#endif
+#else
+#define CrossEngineAPI
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+unsigned int GetVersionMajor();
+unsigned int GetVersionMinor();
+unsigned int GetVersionPatch();
+unsigned int GetVersionBuild();
+#ifdef __cplusplus
+}
+#endif
+
+
+#endif //CROSSENGINE_CONFIG_H

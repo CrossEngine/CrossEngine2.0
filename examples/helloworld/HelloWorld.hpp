@@ -14,7 +14,10 @@
 
 class HelloWorld: public CrossEngine::Application::Application {
 public:
-    int MainLoop(int argc, const char** argv) override;
+
+    int MainLoop() override;
+
+    void Exit() override;
 
 };
 

@@ -21,6 +21,7 @@ set(
 set(
         LIBRARY_INCLUDE_DIR
         ${CMAKE_CURRENT_SOURCE_DIR}/includes
+        ${CMAKE_BINARY_DIR}/includes
 )
 
 set(
@@ -44,6 +45,12 @@ add_library(
         CrossEngine_Library SHARED ${LIBRARY_SOURCE} ${LIBRARY_INCLUDES}
 )
 
+set_target_properties(
+        CrossEngine_Library PROPERTIES
+        POSITION_INDEPENDENT_CODE ON
+        DEFINE_SYMBOL "CrossEngine_Library_Exports"
+)
+
 include_directories(${LIBRARY_INCLUDE_DIR})
 target_include_directories(
         CrossEngine_Library
@@ -53,6 +60,7 @@ target_include_directories(
 target_link_libraries(
         CrossEngine_Library
         CrossEngine_Dependencies
+        CrossEngine_Config
 )
 
 message(STATUS "Loaded CrossEngine_Library")
