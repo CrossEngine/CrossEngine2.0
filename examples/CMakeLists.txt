@@ -6,3 +6,12 @@ project(CrossEngine_Examples)
 add_subdirectory(helloworld/)
 
 message(STATUS "Loaded CrossEngine_Examples")
+
+add_custom_target(
+        ExamplesAll
+)
+
+add_dependencies(
+        ExamplesAll
+        CrossEngine_Examples_HelloWorld
+)
