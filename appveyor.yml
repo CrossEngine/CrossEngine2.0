@@ -1,0 +1,7 @@
+version: 1.0.{build}
+build_script:
+- sh: >-
+    mkdir cmake-build-debug
+    cd cmake-build-debug
+    cmake -DCMAKE_BUILD_TYPE=Debug ../
+    cmake --build . --target ExamplesAll -- -j8
