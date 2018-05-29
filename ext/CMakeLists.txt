@@ -16,6 +16,7 @@ set(GLFW_INSTALL OFF)
 add_subdirectory(glfw/)
 
 set(PHYSFS_BUILD_TEST OFF)
+set(PHYSFS_INSTALL OFF)
 add_subdirectory(physfs/)
 add_subdirectory(spdlog/)
 #add_subdirectory(popl/)
