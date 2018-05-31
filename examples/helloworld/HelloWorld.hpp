@@ -12,16 +12,32 @@
 #include <iostream>
 #include <CrossEngine.hpp>
 
-class HelloWorld: public CrossEngine::Application::Application {
+class ExampleEvent: public CrossEngine::EventBus::Event<ExampleEvent> {
+    int aValue;
 public:
+    ExampleEvent(int value);
 
-    int MainLoop() override;
+    int GetValue() const;
+};
 
-    void Exit() override;
+class ExampleEvent2: public CrossEngine::EventBus::Event<ExampleEvent2> {
 
 };
 
-DEFINE_APPLICATION(HelloWorld);
+class HelloWorld: public CrossEngine::Application::Application, CrossEngine::EventBus::EventHandler<ExampleEvent, ExampleEvent2> {
+public:
+
+    void OnStartup() override;
+
+    void OnShutdown() override;
+
+    void HandleEvent(const CrossEngine::Util::Memory::Shared<ExampleEvent> &event);
+
+    void HandleEvent(const CrossEngine::Util::Memory::Shared<ExampleEvent2> &event);
+
+};
+
+CE_DEFINE_APPLICATION(HelloWorld);
 
 
 #endif //CROSSENGINE_HELLOWORLD_HPP

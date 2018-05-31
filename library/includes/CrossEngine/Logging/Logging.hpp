@@ -21,6 +21,8 @@ namespace CrossEngine {
 
         typedef Util::Containers::Vector<spdlog::sink_ptr> SinksVector;
 
+        SharedLogger GetLogger(const Util::Containers::String& name);
+
         SharedLogger GetLogger(const Util::Containers::String& name, const SinksVector& sinks);
 
     }

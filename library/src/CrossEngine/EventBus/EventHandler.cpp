@@ -1,18 +1,12 @@
 /**************************************************************
  * Program Title: CrossEngine
- * Filename: PhysFSFile.hpp
+ * Filename: EventHandler.cpp
  * Author: Blake Rogan
- * Last modified: 27/05/2018
+ * Last modified: 30/05/2018
  * Description: 
  * Copyright: CrossEngine (c) 2018
  ***************************************************************/
-#ifndef CROSSENGINE_PHYSFSFILE_HPP
-#define CROSSENGINE_PHYSFSFILE_HPP
+#include <CrossEngine/EventBus/EventHandler.hpp>
 
+#include "CrossEngine/EventBus/EventHandler.hpp"
 
-class PhysFSFile {
-
-};
-
-
-#endif //CROSSENGINE_PHYSFSFILE_HPP

@@ -7,6 +7,14 @@
  * Copyright: CrossEngine (c) 2018
  ***************************************************************/
 #include <CrossEngine/Logging/Logging.hpp>
+#include <CrossEngine/Application/Application.hpp>
+
+CrossEngine::Logging::SharedLogger CrossEngine::Logging::GetLogger(const CrossEngine::Util::String &name) {
+    return GetLogger(
+            name,
+            GetApplication()->GetSinks()
+    );
+}
 
 CrossEngine::Logging::SharedLogger CrossEngine::Logging::GetLogger(const CrossEngine::Util::Containers::String &name,
                                                                    const CrossEngine::Logging::SinksVector &sinks) {

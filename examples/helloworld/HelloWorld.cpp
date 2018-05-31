@@ -8,14 +8,34 @@
  ***************************************************************/
 #include "HelloWorld.hpp"
 
-IMPLEMENT_APPLICATION(HelloWorld);
+CE_IMPLEMENT_APPLICATION(HelloWorld);
 
-int HelloWorld::MainLoop() {
+void HelloWorld::OnStartup(){
     log->info("Hello World");
-    return Application::MainLoop();
+    mainEventBus->Subscribe<ExampleEvent>(0, this);
+    mainEventBus->Subscribe<ExampleEvent2>(0, this);
+    mainEventBus->Publish<ExampleEvent>(10);
+    mainEventBus->Publish<ExampleEvent2>();
+    Application::OnStartup();
 }
 
-void HelloWorld::Exit() {
+void HelloWorld::OnShutdown() {
     log->info("Shutdown");
-    Application::Exit();
+    Application::OnShutdown();
+}
+
+void HelloWorld::HandleEvent(const CrossEngine::Util::Memory::Shared<ExampleEvent> &event) {
+    log->info("Hello World");
+}
+
+void HelloWorld::HandleEvent(const CrossEngine::Util::Memory::Shared<ExampleEvent2> &event) {
+    log->info("Hello World 2");
+}
+
+ExampleEvent::ExampleEvent(int value) {
+    aValue = value;
+}
+
+int ExampleEvent::GetValue() const {
+    return aValue;
 }

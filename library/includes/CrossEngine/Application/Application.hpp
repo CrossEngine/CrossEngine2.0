@@ -10,17 +10,30 @@
 #define CROSSENGINE_APPLICATION_HPP
 
 #include <CrossEngine/config.h>
-#include <CrossEngine/Util/Memory.hpp>
-#include <CrossEngine/Util/Containers.hpp>
+#include <CrossEngine/Util/Util.hpp>
+#include <CrossEngine/IO/IOSystem.hpp>
 #include <CrossEngine/Logging/Logging.hpp>
+#include <CrossEngine/EventBus/EventBus.hpp>
 
 #include <popl.hpp>
+#include <atomic>
 
 namespace CrossEngine {
     namespace Application {
-        class Application {
+
+        class Application: public EventBus::EventHandler<EventBus::ShutdownEvent> {
+        private:
+            Util::String applicationLongName;
+            Util::String applicationShortName;
+            Util::String vendorLongName;
+            Util::String vendorShortName;
+
+            std::atomic_bool running;
+
         protected:
             Logging::SharedLogger log;
+            EventBus::EventBus::SharedEventBus mainEventBus;
+            IO::SharedIOSystem ioSystem;
 
         public:
 
@@ -30,21 +43,40 @@ namespace CrossEngine {
 
             CrossEngineAPI virtual Logging::SinksVector GetSinks();
 
-            CrossEngineAPI virtual Util::Containers::String GetVendorLongName();
+            CrossEngineAPI Util::String GetVendorLongName() const;
 
-            CrossEngineAPI virtual Util::Containers::String GetVendorShortName();
+            CrossEngineAPI void SetVendorLongName(const Util::String &name);
 
-            CrossEngineAPI virtual Util::Containers::String GetApplicationLongName();
+            CrossEngineAPI Util::String GetVendorShortName() const;
 
-            CrossEngineAPI virtual Util::Containers::String GetApplicationShortName();
+            CrossEngineAPI void SetVendorShortName(const Util::String &name);
 
-            CrossEngineAPI int Entry(int argc, const char**argv);
+            CrossEngineAPI Util::String GetApplicationLongName() const;
 
-            CrossEngineAPI virtual void Exit();
+            CrossEngineAPI void SetApplicationLongName(const Util::String &name);
 
-            CrossEngineAPI virtual int MainLoop();
+            CrossEngineAPI Util::String GetApplicationShortName() const;
 
-            CrossEngineAPI virtual bool ParseCommandLine(int argc, const char** argv);
+            CrossEngineAPI void SetApplicationShortName(const Util::String &name);
+
+            CrossEngineAPI virtual bool ParseCommandLine(int argc, const char **argv);
+
+            CrossEngineAPI int Entry(int argc, const char **argv);
+
+            CrossEngineAPI virtual void OnStartup();
+
+            CrossEngineAPI virtual void OnShutdown();
+
+            CrossEngineAPI void GLFWError(int errorCode, const char *description);
+
+            CrossEngineAPI void HandleEvent(const EventBus::SharedShutdownEvent& event) override;
+
+        private:
+            bool PrivateEntry(int argc, const char **argv);
+
+            int PrivateMainLoop();
+
+            void PrivateExit();
 
         };
 
@@ -54,12 +86,18 @@ namespace CrossEngine {
 
 CrossEngineAPI CrossEngine::Application::SharedApplication GetApplication();
 
+CrossEngineAPI CrossEngine::Application::SharedApplication
+SetApplication(const CrossEngine::Application::SharedApplication &newApplication);
+
 #define APPLICATION_MAIN_DEF(app) int main(int argc, const char** argv)
 
-#define APPLICATION_GET_IMPL(app) static CrossEngine::Application::SharedApplication application = nullptr; CrossEngine::Application::SharedApplication GetApplication() {return application;}
-#define APPLICATION_MAIN_IMPL(app) int main(int argc, const char** argv) {application = CrossEngine::Util::Memory::Allocate<app>(); return application->Entry(argc, argv);}
+#define APPLICATION_MAIN_IMPL(app) int main(int argc, const char** argv) {\
+                                       CrossEngine::Application::SharedApplication application = CrossEngine::Util::Memory::Allocate<app>(); \
+                                       SetApplication(application); \
+                                       return application->Entry(argc, argv);\
+                                   }
 
-#define DEFINE_APPLICATION(app) APPLICATION_MAIN_DEF(app);
-#define IMPLEMENT_APPLICATION(app) APPLICATION_GET_IMPL(app); APPLICATION_MAIN_IMPL(app);
+#define CE_DEFINE_APPLICATION(app) APPLICATION_MAIN_DEF(app);
+#define CE_IMPLEMENT_APPLICATION(app) APPLICATION_MAIN_IMPL(app);
 
 #endif //CROSSENGINE_APPLICATION_HPP

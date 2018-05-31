@@ -6,16 +6,30 @@ project(CrossEngine_Library)
 set(
         LIBRARY_SOURCE
         # Utilities
+        src/CrossEngine/Util/Util.cpp
         src/CrossEngine/Util/Memory.cpp
         src/CrossEngine/Util/Containers.cpp
 
-        # IO
-        src/CrossEngine/IO/PhysFSFile.cpp
         # Logging
         src/CrossEngine/Logging/Logging.cpp
 
         # Application
         src/CrossEngine/Application/Application.cpp
+
+        # Event Bus
+        src/CrossEngine/EventBus/Event.cpp
+        src/CrossEngine/EventBus/Events.cpp
+        src/CrossEngine/EventBus/EventBus.cpp
+        src/CrossEngine/EventBus/EventHandler.cpp
+
+        # IO
+        src/CrossEngine/IO/IOFile.cpp
+        src/CrossEngine/IO/IOSystem.cpp
+        src/CrossEngine/IO/IOStream.cpp
+
+        # Window
+        src/CrossEngine/Window/Window.cpp
+        src/CrossEngine/Window/WindowManager.cpp
 )
 
 set(
@@ -28,10 +42,8 @@ set(
         LIBRARY_INCLUDES
         includes/CrossEngine.hpp
         # Utilities
+        includes/CrossEngine/Util/Util.hpp
         includes/CrossEngine/Util/Memory.hpp
-
-        # IO
-        includes/CrossEngine/IO/PhysFSFile.hpp
         includes/CrossEngine/Util/Containers.hpp
 
         # Logging
@@ -39,6 +51,21 @@ set(
 
         # Application
         includes/CrossEngine/Application/Application.hpp
+
+        # Event Bus
+        includes/CrossEngine/EventBus/Event.hpp
+        includes/CrossEngine/EventBus/Events.hpp
+        includes/CrossEngine/EventBus/EventBus.hpp
+        includes/CrossEngine/EventBus/EventHandler.hpp
+
+        # IO
+        includes/CrossEngine/IO/IOFile.hpp
+        includes/CrossEngine/IO/IOSystem.hpp
+        includes/CrossEngine/IO/IOStream.hpp
+
+        # Window
+        includes/CrossEngine/Window/Window.hpp
+        includes/CrossEngine/Window/WindowManager.hpp
 )
 
 add_library(
