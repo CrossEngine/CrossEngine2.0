@@ -29,7 +29,16 @@ set(
 
         # Window
         src/CrossEngine/Window/Window.cpp
+        src/CrossEngine/Window/WindowEvents.cpp
         src/CrossEngine/Window/WindowManager.cpp
+
+        # Configuration
+        src/CrossEngine/Config/Configuration.cpp
+        src/CrossEngine/Config/ConfigurationManager.cpp
+
+        # Render
+        src/CrossEngine/Render/Renderer.cpp
+        src/CrossEngine/Render/OpenGLRenderer.cpp
 )
 
 set(
@@ -65,7 +74,16 @@ set(
 
         # Window
         includes/CrossEngine/Window/Window.hpp
+        includes/CrossEngine/Window/WindowEvents.hpp
         includes/CrossEngine/Window/WindowManager.hpp
+
+        # Configuration
+        includes/CrossEngine/Config/Configuration.hpp
+        includes/CrossEngine/Config/ConfigurationManager.hpp
+
+        # Render
+        includes/CrossEngine/Render/Renderer.hpp
+        includes/CrossEngine/Render/OpenGLRenderer.hpp
 )
 
 add_library(

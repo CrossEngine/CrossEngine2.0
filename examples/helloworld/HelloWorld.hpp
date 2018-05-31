@@ -12,7 +12,7 @@
 #include <iostream>
 #include <CrossEngine.hpp>
 
-class ExampleEvent: public CrossEngine::EventBus::Event<ExampleEvent> {
+class ExampleEvent : public CrossEngine::EventBus::Event<ExampleEvent> {
     int aValue;
 public:
     ExampleEvent(int value);
@@ -20,20 +20,31 @@ public:
     int GetValue() const;
 };
 
-class ExampleEvent2: public CrossEngine::EventBus::Event<ExampleEvent2> {
+class ExampleEvent2 : public CrossEngine::EventBus::Event<ExampleEvent2> {
 
 };
 
-class HelloWorld: public CrossEngine::Application::Application, CrossEngine::EventBus::EventHandler<ExampleEvent, ExampleEvent2> {
+class HelloWorld : public CrossEngine::Application::Application,
+                   public CrossEngine::EventBus::EventHandler<
+                           ExampleEvent, ExampleEvent2,
+                           CrossEngine::Window::Events::MousePosEvent,
+                           CrossEngine::Window::Events::KeyEvent
+                   > {
+private:
+    CrossEngine::Window::SharedWindow window;
 public:
 
     void OnStartup() override;
 
     void OnShutdown() override;
 
-    void HandleEvent(const CrossEngine::Util::Memory::Shared<ExampleEvent> &event);
+    void HandleEvent(const CrossEngine::Util::Memory::Shared<ExampleEvent> &event) override;
 
-    void HandleEvent(const CrossEngine::Util::Memory::Shared<ExampleEvent2> &event);
+    void HandleEvent(const CrossEngine::Util::Memory::Shared<ExampleEvent2> &event) override;
+
+    void HandleEvent(const CrossEngine::Util::Memory::Shared<CrossEngine::Window::Events::MousePosEvent> &event) override;
+
+    void HandleEvent(const CrossEngine::Util::Memory::Shared<CrossEngine::Window::Events::KeyEvent> &event) override;
 
 };
 

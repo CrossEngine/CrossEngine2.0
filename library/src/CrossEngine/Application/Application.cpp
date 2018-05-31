@@ -51,8 +51,7 @@ CrossEngine::Logging::SinksVector CrossEngine::Application::Application::GetSink
                 std::make_shared<spdlog::sinks::ansicolor_stdout_sink_mt>()
 #endif
         );
-        auto logPath = ioSystem->GetWriteDir();
-        logPath = logPath + "log" + PHYSFS_getDirSeparator() + "output.log";
+        auto logPath = ioSystem->GetWriteDir() + "log" + PHYSFS_getDirSeparator() + "output.log";
         sinks.push_back(
                 std::make_shared<spdlog::sinks::daily_file_sink_mt>(
                         logPath.c_str(), 0, 0
@@ -128,7 +127,7 @@ void CrossEngine::Application::Application::OnShutdown() {
 
 bool CrossEngine::Application::Application::PrivateEntry(int argc, const char **argv) {
     if (ParseCommandLine(argc, argv)) {
-        ioSystem = CrossEngine::Util::Memory::Allocate<CrossEngine::IO::IOSystem>(argv[0]);
+        ioSystem = CrossEngine::IO::CreateIOSystem(argv[0]);
 
         log = CrossEngine::Logging::GetLogger("CrossEngine", GetSinks());
 
@@ -187,8 +186,11 @@ bool CrossEngine::Application::Application::PrivateEntry(int argc, const char **
         log->info("\tspdlog Version:");
         log->info("\t\tCompiled: {}", SPDLOG_VERSION);
 
-        mainEventBus = CrossEngine::Util::Memory::Allocate<CrossEngine::EventBus::EventBus>("MainEventBus");
+        mainEventBus = CrossEngine::EventBus::CreateEventBus("MainEventBus");
         mainEventBus->Subscribe<CrossEngine::EventBus::ShutdownEvent>(0, this);
+        windowManager = CrossEngine::Window::CreateWindowManager(
+                CrossEngine::EventBus::CreateEventBus("WindowManagerEventBus", mainEventBus)
+        );
 
         auto file = ioSystem->Open("test.txt", IO::Open_Append);
         file->Write("Hello World", 11);
@@ -200,23 +202,15 @@ bool CrossEngine::Application::Application::PrivateEntry(int argc, const char **
 }
 
 int CrossEngine::Application::Application::PrivateMainLoop() {
-//    auto win = glfwCreateWindow(800, 600, "H", nullptr, nullptr);
-//
-//    glfwShowWindow(win);
-
     running = true;
 
     while (running) {
-        glfwPollEvents();
-
+        bool r = windowManager->Pulse();
+        if (r) {
+            running = false;
+        }
         mainEventBus->Pulse();
-//        if (glfwWindowShouldClose(win) == GLFW_TRUE) {
-//            mainEventBus->Publish<CrossEngine::EventBus::ShutdownEvent>();
-//            glfwSetWindowShouldClose(win, GLFW_FALSE);
-//        }
     }
-
-//    glfwDestroyWindow(win);
 
 
     return 0;

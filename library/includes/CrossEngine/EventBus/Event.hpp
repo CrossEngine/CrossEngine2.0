@@ -111,6 +111,21 @@ namespace CrossEngine {
                 );
             }
         };
+
+        template <class EventType, class ...Args>
+        CrossEngineAPI Util::Memory::Shared<EventType> CreateEventT(Args...args) {
+            return Util::Memory::Allocate<EventType>(args...);
+        }
+
+        template <class ...Args>
+        CrossEngineAPI EventContainer::SharedEventContainer CreateEventContainer(Args...args) {
+            return Util::Memory::Allocate<EventContainer>(args...);
+        }
+
+        template <class EventType, class EventHandlerType, class ...Args>
+        CrossEngineAPI BaseEventHandlerContainer::SharedEventHandler CreateHandlerContainer(Args...args) {
+            return Util::Memory::Allocate<EventHandlerContainer<EventType, EventHandlerType>>(args...);
+        }
     }
 }
 

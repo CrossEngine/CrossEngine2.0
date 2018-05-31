@@ -17,6 +17,7 @@
 namespace CrossEngine {
     namespace Util {
         using String = Containers::String;
+        typedef Util::Containers::Vector<String> StringVector;
     }
 }
 

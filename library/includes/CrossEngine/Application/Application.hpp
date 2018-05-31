@@ -14,6 +14,7 @@
 #include <CrossEngine/IO/IOSystem.hpp>
 #include <CrossEngine/Logging/Logging.hpp>
 #include <CrossEngine/EventBus/EventBus.hpp>
+#include <CrossEngine/Window/WindowManager.hpp>
 
 #include <popl.hpp>
 #include <atomic>
@@ -34,6 +35,7 @@ namespace CrossEngine {
             Logging::SharedLogger log;
             EventBus::EventBus::SharedEventBus mainEventBus;
             IO::SharedIOSystem ioSystem;
+            Window::SharedWindowManager windowManager;
 
         public:
 
@@ -81,6 +83,11 @@ namespace CrossEngine {
         };
 
         typedef Util::Memory::Shared<Application> SharedApplication;
+
+        template <class ApplicationType, class ...Args>
+        SharedApplication CreateApplication(Args...args) {
+            return CrossEngine::Util::Memory::Allocate<ApplicationType>(args...);
+        }
     }
 }
 
@@ -92,7 +99,7 @@ SetApplication(const CrossEngine::Application::SharedApplication &newApplication
 #define APPLICATION_MAIN_DEF(app) int main(int argc, const char** argv)
 
 #define APPLICATION_MAIN_IMPL(app) int main(int argc, const char** argv) {\
-                                       CrossEngine::Application::SharedApplication application = CrossEngine::Util::Memory::Allocate<app>(); \
+                                       CrossEngine::Application::SharedApplication application = CrossEngine::Application::CreateApplication<app>(); \
                                        SetApplication(application); \
                                        return application->Entry(argc, argv);\
                                    }

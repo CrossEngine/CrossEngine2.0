@@ -22,17 +22,28 @@ add_subdirectory(physfs/)
 add_subdirectory(spdlog/)
 #add_subdirectory(popl/)
 
+set(GLAD_PROFILE "core")
+set(GLAD_API "gl=4.6")
+set(GLAD_GENERATOR "c")
+set(GLAD_EXTENSIONS "")
+set(GLAD_SPEC "gl")
+set(GLAD_NO_LOADER ON)
+set(GLAD_INSTALL OFF)
+add_subdirectory(glad/)
+
 target_link_libraries(
         CrossEngine_Dependencies
         INTERFACE spdlog
         INTERFACE physfs
         INTERFACE glfw
+        INTERFACE glad
 )
 
 target_include_directories(
         CrossEngine_Dependencies
         INTERFACE popl/include
         INTERFACE physfs/src
+        INTERFACE ${CMAKE_CURRENT_BINARY_DIR}/glad/include/
 )
 
 if (CROSSENGINE_BUILD_TESTS)

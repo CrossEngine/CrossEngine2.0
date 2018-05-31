@@ -64,13 +64,9 @@ namespace CrossEngine {
 
             template<class EventType, class ...Args>
             CrossEngineAPI void Publish(Args...args) {
-                CrossEngine::Util::Memory::Shared<EventType> event = CrossEngine::Util::Memory::Allocate<EventType>(
-                        args...
-                );
-
-                CrossEngine::Util::Memory::Shared<EventContainer> container = CrossEngine::Util::Memory::Allocate<EventContainer>(
+                EventContainer::SharedEventContainer container = CreateEventContainer(
                         EventType::GetEventID(),
-                        event
+                        CreateEventT<EventType>(args...)
                 );
 
                 Publish(container);
@@ -80,7 +76,7 @@ namespace CrossEngine {
 
             template<class EventType, class EventHandlerType>
             CrossEngineAPI EventHandlerID Subscribe(EventHandlerPriority priority, EventHandlerType eventHandler) {
-                BaseEventHandlerContainer::SharedEventHandler handler = Util::Memory::Allocate<EventHandlerContainer<EventType, EventHandlerType>>(
+                BaseEventHandlerContainer::SharedEventHandler handler = CreateHandlerContainer<EventType, EventHandlerType>(
                         eventHandler, priority, EventType::GetEventID()
                 );
                 return Subscribe(EventType::GetEventID(), handler);
@@ -98,6 +94,12 @@ namespace CrossEngine {
             EventContainer::SharedEventContainer PopEvent();
 
         };
+
+
+        template <class ...Args>
+        CrossEngineAPI EventBus::SharedEventBus CreateEventBus(Args...args) {
+            return Util::Memory::Allocate<EventBus>(args...);
+        }
     }
 }
 

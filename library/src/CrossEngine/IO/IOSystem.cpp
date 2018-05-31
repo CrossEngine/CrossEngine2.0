@@ -38,5 +38,5 @@ bool CrossEngine::IO::IOSystem::Exists(const CrossEngine::Util::String &filename
 
 CrossEngine::IO::SharedIOFile
 CrossEngine::IO::IOSystem::Open(const CrossEngine::Util::String &filename, CrossEngine::IO::OpenMode mode) {
-    return CrossEngine::Util::Memory::Allocate<CrossEngine::IO::IOFile>(filename, mode);
+    return CrossEngine::IO::CreateIOFile(filename, mode);
 }

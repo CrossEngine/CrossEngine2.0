@@ -13,6 +13,7 @@
 #include <CrossEngine/Util/Util.hpp>
 #include <CrossEngine/IO/IOSystem.hpp>
 #include <CrossEngine/EventBus/EventBus.hpp>
+#include <CrossEngine/Window/WindowManager.hpp>
 #include <CrossEngine/Application/Application.hpp>
 
 #endif //CROSSENGINE_CROSSENGINE_HPP

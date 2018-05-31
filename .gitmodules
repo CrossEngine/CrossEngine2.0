@@ -13,3 +13,6 @@
 [submodule "ext/popl"]
 	path = ext/popl
 	url = git@github.com:CrossEngine/popl.git
+[submodule "ext/glad"]
+	path = ext/glad
+	url = git@github.com:CrossEngine/glad.git

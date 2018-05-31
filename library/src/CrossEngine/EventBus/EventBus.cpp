@@ -50,7 +50,7 @@ void CrossEngine::EventBus::EventBus::Pulse() {
                 parent->Publish(event);
             }
         } else {
-            log->info("Attempt to handle event: {}", event->GetID().hash);
+            log->debug("Attempt to handle event: {}", event->GetID().hash);
             for (const auto &handler : (*it).second) {
                 handler->Callback(event->GetSharedEvent());
             }
@@ -60,7 +60,7 @@ void CrossEngine::EventBus::EventBus::Pulse() {
 
 void
 CrossEngine::EventBus::EventBus::Publish(const CrossEngine::EventBus::EventContainer::SharedEventContainer &event) {
-    log->info("Publish Event: {} {}", event->GetID().hash, event->GetID().mangled);
+    log->debug("Publish Event: {} {}", event->GetID().hash, event->GetID().mangled);
     {
         std::lock_guard<std::mutex> guard(eventMutex);
         events.push(event);
@@ -83,7 +83,7 @@ CrossEngine::EventBus::EventBus::Subscribe(const CrossEngine::EventBus::BaseEven
         auto inserted = (*it).second.insert(handler);
         index = static_cast<size_t>(std::distance((*it).second.begin(), inserted.first));
     }
-    log->info("Subscribed Event Handler: {} {} {}", event.hash, handler->GetPriority(), index);
+    log->debug("Subscribed Event Handler: {} {} {}", event.hash, handler->GetPriority(), index);
     return {index};
 }
 
@@ -95,7 +95,7 @@ void CrossEngine::EventBus::EventBus::Unsubscribe(CrossEngine::EventBus::BaseEve
         auto setIt = (*it).second.begin();
         std::advance(setIt, handlerID.index);
         (*it).second.erase(setIt);
-        log->info("Unsubscribed EventHandler: {} {}", event.hash, handlerID.index);
+        log->debug("Unsubscribed EventHandler: {} {}", event.hash, handlerID.index);
     }
 }
 

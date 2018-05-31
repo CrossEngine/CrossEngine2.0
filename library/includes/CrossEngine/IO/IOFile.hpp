@@ -48,6 +48,12 @@ namespace CrossEngine {
         };
 
         typedef Util::Memory::Shared<IOFile> SharedIOFile;
+
+
+        template <class ...Args>
+        CrossEngineAPI SharedIOFile CreateIOFile(Args...args) {
+            return Util::Memory::Allocate<IOFile>(args...);
+        }
     }
 }
 

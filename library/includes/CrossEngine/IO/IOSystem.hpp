@@ -34,6 +34,13 @@ namespace CrossEngine {
         };
 
         typedef Util::Memory::Shared<IOSystem> SharedIOSystem;
+
+
+        template <class ...Args>
+        CrossEngineAPI SharedIOSystem CreateIOSystem(Args...args) {
+            return Util::Memory::Allocate<IOSystem>(args...);
+        }
+
     }
 }
 
