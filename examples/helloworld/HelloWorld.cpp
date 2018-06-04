@@ -18,7 +18,32 @@ void HelloWorld::OnStartup() {
     mainEventBus->Subscribe<CrossEngine::Window::Events::KeyEvent>(0, this);
     mainEventBus->Publish<ExampleEvent>(10);
     mainEventBus->Publish<ExampleEvent2>();
-    window = windowManager->NewWindow("Example", 800, 600);
+    window = windowManager->NewWindow<CrossEngine::Render::OpenGLRenderer>("Render Window", 800, 450);
+
+    log->info("Building Shaders");
+
+    auto vertex = window->LoadShaderSource("vertex", "void main() {gl_Position = vec4(0, 0, 0, 0);}", GL_VERTEX_SHADER);
+    auto fragment = window->LoadShaderSource("fragment", "void main() {}", GL_FRAGMENT_SHADER);
+
+    auto program = window->LoadShaderProgram("main", {vertex, fragment});
+
+    log->info("Shaders have been built");
+
+    window->GetRenderer<CrossEngine::Render::OpenGLRenderer>()->AddRenderFunction([this](CrossEngine::Window::Window* window1, CrossEngine::Util::DeltaTime delta){
+        log->info("On Render");
+        glClear(GL_COLOR_BUFFER_BIT);
+        glClearColor(1, 0, 0, 1);
+        glViewport(0, 0, 800, 600);
+    });
+
+    window->GetRenderer<CrossEngine::Render::OpenGLRenderer>()->AddRenderFunction([this](CrossEngine::Window::Window* window1, CrossEngine::Util::DeltaTime delta){
+        log->info("On Flush: {}", delta);
+        glFlush();
+    });
+
+    window->SetPaused(false);
+
+//    window->CreateShader();
 
     Application::OnStartup();
 }

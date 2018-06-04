@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.9)
 
-project(CrossEngine_Config)
+#project(CrossEngine_Config)
 
 include(version)
 include(buildnumber)

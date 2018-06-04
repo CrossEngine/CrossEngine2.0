@@ -10,11 +10,13 @@
 #define CROSSENGINE_CONTAINERS_HPP
 
 #include <CrossEngine/Util/Memory.hpp>
-#include <vector>
 #include <set>
-#include <unordered_map>
+#include <list>
 #include <deque>
 #include <queue>
+#include <vector>
+#include <forward_list>
+#include <unordered_map>
 
 namespace CrossEngine {
     namespace Util {
@@ -24,6 +26,12 @@ namespace CrossEngine {
 
             template <class _Tp>
             using Vector = std::vector<_Tp, Util::Memory::Allocator<_Tp>>;
+
+            template <class _Tp>
+            using List = std::list<_Tp, Util::Memory::Allocator<_Tp>>;
+
+            template <class _Tp>
+            using ForwardList = std::forward_list<_Tp, Util::Memory::Allocator<_Tp>>;
 
 
             template <class _Key, class _Comp=std::less<_Key>>

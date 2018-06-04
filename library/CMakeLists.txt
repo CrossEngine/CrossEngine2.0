@@ -7,6 +7,7 @@ set(
         LIBRARY_SOURCE
         # Utilities
         src/CrossEngine/Util/Util.cpp
+        src/CrossEngine/Util/Clock.cpp
         src/CrossEngine/Util/Memory.cpp
         src/CrossEngine/Util/Containers.cpp
 
@@ -37,8 +38,15 @@ set(
         src/CrossEngine/Config/ConfigurationManager.cpp
 
         # Render
+        src/CrossEngine/Render/Shader.cpp
         src/CrossEngine/Render/Renderer.cpp
-        src/CrossEngine/Render/OpenGLRenderer.cpp
+        src/CrossEngine/Render/RenderEvents.cpp
+
+        # Render OpenGL
+        src/CrossEngine/Render/OpenGL/Model.cpp
+        src/CrossEngine/Render/OpenGL/Shader.cpp
+        src/CrossEngine/Render/OpenGL/Material.cpp
+        src/CrossEngine/Render/OpenGL/OpenGLRenderer.cpp
 )
 
 set(
@@ -52,6 +60,7 @@ set(
         includes/CrossEngine.hpp
         # Utilities
         includes/CrossEngine/Util/Util.hpp
+        includes/CrossEngine/Util/Clock.hpp
         includes/CrossEngine/Util/Memory.hpp
         includes/CrossEngine/Util/Containers.hpp
 
@@ -82,8 +91,15 @@ set(
         includes/CrossEngine/Config/ConfigurationManager.hpp
 
         # Render
+        includes/CrossEngine/Render/Shader.hpp
         includes/CrossEngine/Render/Renderer.hpp
-        includes/CrossEngine/Render/OpenGLRenderer.hpp
+        includes/CrossEngine/Render/RenderEvents.hpp
+
+        # Render OpenGL
+        includes/CrossEngine/Render/OpenGL/Model.hpp
+        includes/CrossEngine/Render/OpenGL/Shader.hpp
+        includes/CrossEngine/Render/OpenGL/Material.hpp
+        includes/CrossEngine/Render/OpenGL/OpenGLRenderer.hpp
 )
 
 add_library(
@@ -107,5 +123,41 @@ target_link_libraries(
         CrossEngine_Dependencies
         CrossEngine_Config
 )
+
+find_library(
+        PThread
+        NAMES pthread libwinpthread-1
+)
+
+if (NOT PThread)
+    message(STATUS "Could not find Pthread")
+else(NOT PThread)
+    message(STATUS ${PThread})
+    target_link_libraries(
+            CrossEngine_Library
+            ${PThread}
+    )
+endif()
+
+if (MINGW)
+
+    find_library(
+            GCC_S_SEH
+            NAMES libgcc_s_seh-1
+    )
+
+    find_library(
+            STD_CPP
+            NAMES libstdc++-6
+    )
+
+    add_custom_command(
+            TARGET CrossEngine_Library
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PThread} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${GCC_S_SEH} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${STD_CPP} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+    )
+endif()
 
 message(STATUS "Loaded CrossEngine_Library")

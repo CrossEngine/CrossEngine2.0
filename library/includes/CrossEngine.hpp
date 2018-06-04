@@ -10,6 +10,10 @@
 #define CROSSENGINE_CROSSENGINE_HPP
 
 #include <CrossEngine/config.h>
+
+#include <CrossEngine/Render/OpenGL/OpenGLRenderer.hpp>
+#include <CrossEngine/Render/Renderer.hpp>
+
 #include <CrossEngine/Util/Util.hpp>
 #include <CrossEngine/IO/IOSystem.hpp>
 #include <CrossEngine/EventBus/EventBus.hpp>

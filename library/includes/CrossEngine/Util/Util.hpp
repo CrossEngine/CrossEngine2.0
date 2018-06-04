@@ -10,6 +10,7 @@
 #define CROSSENGINE_BUILDNUMBER_UTIL_HPP
 
 #include <CrossEngine/config.h>
+#include <CrossEngine/Util/Clock.hpp>
 #include <CrossEngine/Util/Memory.hpp>
 #include <CrossEngine/Util/Containers.hpp>
 
@@ -18,6 +19,7 @@ namespace CrossEngine {
     namespace Util {
         using String = Containers::String;
         typedef Util::Containers::Vector<String> StringVector;
+        using DeltaTime = Clock::DeltaTime;
     }
 }
 

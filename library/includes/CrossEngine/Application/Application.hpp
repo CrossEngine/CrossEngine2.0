@@ -22,7 +22,7 @@
 namespace CrossEngine {
     namespace Application {
 
-        class Application: public EventBus::EventHandler<EventBus::ShutdownEvent> {
+        class Application : public EventBus::EventHandler<EventBus::ShutdownEvent> {
         private:
             Util::String applicationLongName;
             Util::String applicationShortName;
@@ -71,7 +71,7 @@ namespace CrossEngine {
 
             CrossEngineAPI void GLFWError(int errorCode, const char *description);
 
-            CrossEngineAPI void HandleEvent(const EventBus::SharedShutdownEvent& event) override;
+            CrossEngineAPI void HandleEvent(const EventBus::SharedShutdownEvent &event) override;
 
         private:
             bool PrivateEntry(int argc, const char **argv);
@@ -84,7 +84,7 @@ namespace CrossEngine {
 
         typedef Util::Memory::Shared<Application> SharedApplication;
 
-        template <class ApplicationType, class ...Args>
+        template<class ApplicationType, class ...Args>
         SharedApplication CreateApplication(Args...args) {
             return CrossEngine::Util::Memory::Allocate<ApplicationType>(args...);
         }
@@ -98,10 +98,11 @@ SetApplication(const CrossEngine::Application::SharedApplication &newApplication
 
 #define APPLICATION_MAIN_DEF(app) int main(int argc, const char** argv)
 
-#define APPLICATION_MAIN_IMPL(app) int main(int argc, const char** argv) {\
+#define APPLICATION_MAIN_IMPL(app) int main(int argc, const char** argv) { \
+                                       CrossEngine::Util::Clock::SetClock(CrossEngine::Util::Memory::Allocate<CrossEngine::Util::Clock::Clock>()); \
                                        CrossEngine::Application::SharedApplication application = CrossEngine::Application::CreateApplication<app>(); \
                                        SetApplication(application); \
-                                       return application->Entry(argc, argv);\
+                                       return application->Entry(argc, argv); \
                                    }
 
 #define CE_DEFINE_APPLICATION(app) APPLICATION_MAIN_DEF(app);

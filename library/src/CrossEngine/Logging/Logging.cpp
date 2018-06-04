@@ -18,5 +18,7 @@ CrossEngine::Logging::SharedLogger CrossEngine::Logging::GetLogger(const CrossEn
 
 CrossEngine::Logging::SharedLogger CrossEngine::Logging::GetLogger(const CrossEngine::Util::Containers::String &name,
                                                                    const CrossEngine::Logging::SinksVector &sinks) {
-    return CrossEngine::Util::Memory::Allocate<spdlog::logger>(name, sinks.begin(), sinks.end());
+    auto log = CrossEngine::Util::Memory::Allocate<spdlog::logger>(name, sinks.begin(), sinks.end());
+    log->set_pattern("[%d/%m/%Y %H:%M:%S.%f] [%n] [%^%l%$] %v");
+    return log;
 }

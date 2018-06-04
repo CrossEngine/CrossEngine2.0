@@ -6,12 +6,8 @@
  * Description: 
  * Copyright: CrossEngine (c) 2018
  ***************************************************************/
-#ifndef CROSSENGINE_BUILDNUMBER_WINDOWMANAGER_HPP
-#define CROSSENGINE_BUILDNUMBER_WINDOWMANAGER_HPP
-
-
-#include <CrossEngine/Render/OpenGLRenderer.hpp>
-#include <CrossEngine/Render/Renderer.hpp>
+#ifndef CROSSENGINE_WINDOWMANAGER_HPP
+#define CROSSENGINE_WINDOWMANAGER_HPP
 
 #include <CrossEngine/config.h>
 #include <CrossEngine/Util/Util.hpp>
@@ -32,7 +28,7 @@ namespace CrossEngine {
 
             CrossEngineAPI ~WindowManager();
 
-            template <class RendererType=Render::OpenGLRenderer>
+            template <class RendererType>
             CrossEngineAPI SharedWindow NewWindow(const Util::String& name, int width, int height, RenderAPI api = API_OpenGL) {
                 auto window = CrossEngine::Window::CreateWindowT(
                         name, width, height, api,
@@ -57,4 +53,4 @@ namespace CrossEngine {
 }
 
 
-#endif //CROSSENGINE_BUILDNUMBER_WINDOWMANAGER_HPP
+#endif //CROSSENGINE_WINDOWMANAGER_HPP

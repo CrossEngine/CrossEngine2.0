@@ -139,6 +139,7 @@ CrossEngine::Window::Window::Window(
             break;
     }
     windowBus = eventBus;
+    renderBus = CrossEngine::EventBus::CreateEventBus("RenderBus", windowBus);
     this->renderer = renderer;
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
     resourceContext = glfwCreateWindow(1, 1, "Resources", nullptr, nullptr);
@@ -146,7 +147,7 @@ CrossEngine::Window::Window::Window(
     if (IsValid()) {
         glfwShowWindow(window);
 
-        glfwSetWindowUserPointer(window, new UserPointerType{windowBus, this});
+        glfwSetWindowUserPointer(window, new UserPointerType{renderBus, this});
 
         glfwSetKeyCallback(window, KeyCallback);
         glfwSetCharCallback(window, CharCallback);
@@ -164,12 +165,21 @@ CrossEngine::Window::Window::Window(
         glfwSetWindowIconifyCallback(window, WindowIconifyCallback);
         glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
     }
+    this->renderer->Create(this);
 }
 
 CrossEngine::Window::Window::~Window() {
+    glfwMakeContextCurrent(resourceContext);
+    shaders.clear();
+    shaderPrograms.clear();
+
+    renderer->Destroy(this);
     glfwDestroyWindow(window);
     glfwDestroyWindow(resourceContext);
     window = nullptr;
+    renderer = nullptr;
+    renderBus = nullptr;
+    windowBus = nullptr;
 }
 
 bool CrossEngine::Window::Window::IsValid() {
@@ -198,12 +208,82 @@ void CrossEngine::Window::Window::StopRenderLoop() {
     }
 }
 
+bool CrossEngine::Window::Window::IsPaused() const {
+    return paused;
+}
+
+void CrossEngine::Window::Window::SetPaused(bool paused) {
+    this->paused = paused;
+}
+
 void CrossEngine::Window::Window::PrivateRenderLoop() {
     isRendering = true;
-    if (renderer->Setup(window)) {
+    paused = true;
+    if (renderer->Setup(this)) {
         while (isRendering) {
-            renderer->Render(window);
+            if (paused) continue;
+            now = CrossEngine::Util::Clock::Tick();
+            delta = now - start;
+            start = now;
+
+            renderBus->Pulse();
+            renderer->Render(this, 0.0f);
         }
-        renderer->Teardown(window);
+        renderer->Teardown(this);
     }
+}
+
+GLFWwindow *CrossEngine::Window::Window::GetWindow() const {
+    return window;
+}
+
+CrossEngine::EventBus::EventBus::SharedEventBus CrossEngine::Window::Window::GetWindowBus() const {
+    return windowBus;
+}
+
+CrossEngine::EventBus::EventBus::SharedEventBus CrossEngine::Window::Window::GetRenderBus() const {
+    return renderBus;
+}
+
+CrossEngine::Render::SharedShaderSource
+CrossEngine::Window::Window::LoadShaderSource(const CrossEngine::Util::String &name,
+                                              const CrossEngine::Util::String &source, GLenum type) {
+    auto shader = GetShaderSource(name);
+    if (shader) {
+        return shader;
+    }
+    glfwMakeContextCurrent(resourceContext);
+    shader = renderer->LoadShaderSource(name, source, type);
+    shaders[name] = shader;
+    return shader;
+}
+
+CrossEngine::Render::SharedShaderSource
+CrossEngine::Window::Window::GetShaderSource(const CrossEngine::Util::String &name) {
+    auto it = shaders.find(name);
+    if (it == shaders.end()) {
+        return nullptr;
+    }
+    return (*it).second;
+}
+
+CrossEngine::Render::SharedShaderProgram
+CrossEngine::Window::Window::LoadShaderProgram(const CrossEngine::Util::String& name, const CrossEngine::Render::ShaderSourceVector &sources) {
+    auto program = GetShaderProgram(name);
+    if (program) {
+        return program;
+    }
+    glfwMakeContextCurrent(resourceContext);
+    program = renderer->LoadShaderProgram(sources);
+    shaderPrograms[name] = program;
+    return program;
+}
+
+CrossEngine::Render::SharedShaderProgram
+CrossEngine::Window::Window::GetShaderProgram(const CrossEngine::Util::String &name) {
+    auto it = shaderPrograms.find(name);
+    if (it == shaderPrograms.end()) {
+        return nullptr;
+    }
+    return (*it).second;
 }
