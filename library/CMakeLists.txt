@@ -7,6 +7,7 @@ set(
         LIBRARY_SOURCE
         # Utilities
         src/CrossEngine/Util/Util.cpp
+        src/CrossEngine/Util/Math.cpp
         src/CrossEngine/Util/Clock.cpp
         src/CrossEngine/Util/Memory.cpp
         src/CrossEngine/Util/Containers.cpp
@@ -41,6 +42,7 @@ set(
         src/CrossEngine/Render/Shader.cpp
         src/CrossEngine/Render/Renderer.cpp
         src/CrossEngine/Render/RenderEvents.cpp
+        src/CrossEngine/Render/RenderObject.cpp
 
         # Render OpenGL
         src/CrossEngine/Render/OpenGL/Model.cpp
@@ -60,6 +62,7 @@ set(
         includes/CrossEngine.hpp
         # Utilities
         includes/CrossEngine/Util/Util.hpp
+        includes/CrossEngine/Util/Math.hpp
         includes/CrossEngine/Util/Clock.hpp
         includes/CrossEngine/Util/Memory.hpp
         includes/CrossEngine/Util/Containers.hpp
@@ -94,12 +97,14 @@ set(
         includes/CrossEngine/Render/Shader.hpp
         includes/CrossEngine/Render/Renderer.hpp
         includes/CrossEngine/Render/RenderEvents.hpp
+        includes/CrossEngine/Render/RenderObject.hpp
 
         # Render OpenGL
         includes/CrossEngine/Render/OpenGL/Model.hpp
         includes/CrossEngine/Render/OpenGL/Shader.hpp
         includes/CrossEngine/Render/OpenGL/Material.hpp
         includes/CrossEngine/Render/OpenGL/OpenGLRenderer.hpp
+        includes/CrossEngine/Render/OpenGL/OpenGL.hpp
 )
 
 add_library(

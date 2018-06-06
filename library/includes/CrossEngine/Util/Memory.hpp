@@ -15,12 +15,25 @@ namespace CrossEngine {
     namespace Util {
         namespace Memory {
 
+            /**
+             *
+             */
             template <class _Tp>
             using Allocator = std::allocator<_Tp>;
 
+            /**
+             *
+             */
             template <class _Tp>
             using Shared = std::shared_ptr<_Tp>;
 
+            /**
+             *
+             * \tparam _Tp
+             * \tparam _Args
+             * \param __args
+             * \return
+             */
             template <class _Tp, class ..._Args>
             inline Shared<_Tp> Allocate(_Args...__args) {
                 typedef typename std::remove_const<_Tp>::type _Tp_nc;

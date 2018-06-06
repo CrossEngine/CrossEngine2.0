@@ -6,8 +6,8 @@
  * Description: 
  * Copyright: CrossEngine (c) 2018
  ***************************************************************/
-#ifndef CROSSENGINE_BUILDNUMBER_CONFIGURATION_HPP
-#define CROSSENGINE_BUILDNUMBER_CONFIGURATION_HPP
+#ifndef CROSSENGINE_CONFIGURATION_HPP
+#define CROSSENGINE_CONFIGURATION_HPP
 
 
 class Configuration {
@@ -15,4 +15,4 @@ class Configuration {
 };
 
 
-#endif //CROSSENGINE_BUILDNUMBER_CONFIGURATION_HPP
+#endif //CROSSENGINE_CONFIGURATION_HPP

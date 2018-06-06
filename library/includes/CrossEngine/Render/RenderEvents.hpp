@@ -19,22 +19,42 @@ namespace CrossEngine {
     namespace Render {
         class Renderer;
         namespace Events {
+            /**
+             *
+             */
             class BaseEvent {
 
             };
 
+            /**
+             *
+             */
             class PlayPauseEvent: public BaseEvent, public EventBus::Event<PlayPauseEvent> {
             private:
-                bool paused;
+                bool paused; /** */
 
             public:
+                /**
+                 *
+                 * \param paused
+                 */
                 CrossEngineAPI explicit PlayPauseEvent(bool paused);
 
+                /**
+                 *
+                 */
                 CrossEngineAPI ~PlayPauseEvent();
 
-                bool GetPaused() const;
+                /**
+                 *
+                 * \return
+                 */
+                CrossEngineAPI bool GetPaused() const;
             };
 
+            /**
+             *
+             */
             typedef Util::Memory::Shared<PlayPauseEvent> SharedPlayPauseEvent;
 
         }

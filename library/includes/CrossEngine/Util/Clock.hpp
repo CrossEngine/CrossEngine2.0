@@ -18,32 +18,63 @@ namespace CrossEngine {
     namespace Util {
         namespace Clock {
 
+            /**
+             *
+             */
             typedef float DeltaTime;
 
+            /**
+             *
+             */
             class Clock {
             private:
-                typedef std::chrono::duration<DeltaTime> DeltaDuration;
-                typedef std::chrono::high_resolution_clock ChronoClock;
-                typedef ChronoClock::time_point TimePoint;
-                typedef ChronoClock::duration Duration;
+                typedef std::chrono::duration<DeltaTime> DeltaDuration; /** */
+                typedef std::chrono::high_resolution_clock ChronoClock; /** */
+                typedef ChronoClock::time_point TimePoint; /** */
+                typedef ChronoClock::duration Duration; /** */
 
-                TimePoint start;
+                TimePoint start; /** */
 
             public:
+                /**
+                 *
+                 */
                 CrossEngineAPI Clock();
 
+                /**
+                 *
+                 */
                 CrossEngineAPI ~Clock();
 
+                /**
+                 *
+                 * \return
+                 */
                 CrossEngineAPI virtual DeltaTime Tick();
 
             };
 
+            /**
+             *
+             */
             typedef Util::Memory::Shared<Clock> SharedClock;
 
+            /**
+             *
+             * \return
+             */
             CrossEngineAPI SharedClock GetClock();
 
+            /**
+             *
+             * \param clock
+             */
             CrossEngineAPI void SetClock(const SharedClock& clock);
 
+            /**
+             *
+             * \return
+             */
             CrossEngineAPI DeltaTime Tick();
 
         }

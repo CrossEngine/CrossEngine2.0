@@ -9,35 +9,71 @@
 #ifndef CROSSENGINE_OPENGL_SHADER_HPP
 #define CROSSENGINE_OPENGL_SHADER_HPP
 
-#include <glad/glad.h>
-
 #include <CrossEngine/config.h>
 #include <CrossEngine/Render/Shader.hpp>
+#include <CrossEngine/Render/OpenGL/OpenGL.hpp>
 
 namespace CrossEngine {
     namespace Render {
-
         namespace OpenGL {
+            /**
+             *
+             */
             class OpenGLShaderSource: public ShaderSource {
             private:
-                GLuint shader;
+                GLuint shader; /** */
 
             public:
-                OpenGLShaderSource(const Util::String &name, const Util::String &source, unsigned int type);
+                /**
+                 *
+                 * \param name
+                 * \param source
+                 * \param type
+                 */
+                CrossEngineAPI OpenGLShaderSource(const Util::String &name, const Util::CharVector &source, unsigned int type);
 
-                ~OpenGLShaderSource();
+                /**
+                 *
+                 */
+                CrossEngineAPI ~OpenGLShaderSource();
 
-                GLuint GetShader() const;
+                /**
+                 *
+                 * \return
+                 */
+                CrossEngineAPI GLuint GetShader() const;
 
             };
 
+            /**
+             *
+             */
             class OpenGLShaderProgram: public ShaderProgram {
             private:
-                GLuint program;
-            public:
-                OpenGLShaderProgram(const ShaderSourceVector &sources);
+                GLuint program; /** */
 
-                ~OpenGLShaderProgram();
+                Util::Containers::UnorderedMap<Util::String, GLint> uniformLocations;
+            public:
+                /**
+                 *
+                 * \param sources
+                 */
+                CrossEngineAPI explicit OpenGLShaderProgram(const ShaderSourceVector &sources);
+
+                /**
+                 *
+                 */
+                CrossEngineAPI ~OpenGLShaderProgram();
+
+                CrossEngineAPI NativeShaderType Bind() override;
+
+                CrossEngineAPI void Unbind(NativeShaderType shader) override;
+
+                CrossEngineAPI GLint GetUniformLocation(const Util::String& name);
+
+                CrossEngineAPI void Matrix4(const Util::String& name, Util::Math::Matrix4 matrix4) override;
+
+                CrossEngineAPI void Matrix4v(const Util::String& name, Util::Math::Matrix4Vector matrix4) override;
 
             };
         }

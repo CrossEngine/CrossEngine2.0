@@ -6,8 +6,8 @@
  * Description: 
  * Copyright: CrossEngine (c) 2018
  ***************************************************************/
-#ifndef CROSSENGINE_BUILDNUMBER_EVENTHANDLER_HPP
-#define CROSSENGINE_BUILDNUMBER_EVENTHANDLER_HPP
+#ifndef CROSSENGINE_EVENTHANDLER_HPP
+#define CROSSENGINE_EVENTHANDLER_HPP
 
 #include <CrossEngine/config.h>
 #include <CrossEngine/Util/Util.hpp>
@@ -19,31 +19,59 @@
 namespace CrossEngine {
     namespace EventBus {
 
+        /**
+         *
+         */
         typedef struct EventHandlerID {
-            size_t index;
+            size_t index; /** */
         } EventHandlerID;
 
+        /**
+         *
+         * \tparam EventType
+         */
         template <class EventType>
         class BaseEventHandler {
         public:
+            /**
+             *
+             * \return
+             */
             CrossEngineAPI virtual typename EventType::EventID GetIdentifier() const {
                 return EventType::GetEventID();
             }
 
+            /**
+             *
+             * \param event
+             */
             CrossEngineAPI virtual void HandleEvent(const CrossEngine::Util::Memory::Shared<EventType> &event) = 0;
         };
 
+        /**
+         *
+         * \tparam EventType
+         * \tparam EventTypes
+         */
         template<class EventType, class ...EventTypes>
         class EventHandler: public BaseEventHandler<EventTypes>... {
         public:
+            /**
+             *
+             * \return
+             */
             CrossEngineAPI virtual typename EventType::EventID GetIdentifier() const {
                 return EventType::GetEventID();
             }
 
+            /**
+             *
+             * \param event
+             */
             CrossEngineAPI virtual void HandleEvent(const CrossEngine::Util::Memory::Shared<EventType> &event) = 0;
         };
     }
 }
 
 
-#endif //CROSSENGINE_BUILDNUMBER_EVENTHANDLER_HPP
+#endif //CROSSENGINE_EVENTHANDLER_HPP

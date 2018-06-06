@@ -31,12 +31,15 @@ set(GLAD_NO_LOADER ON)
 set(GLAD_INSTALL OFF)
 add_subdirectory(glad/)
 
+add_subdirectory(glm/)
+
 target_link_libraries(
         CrossEngine_Dependencies
         INTERFACE spdlog
         INTERFACE physfs
         INTERFACE glfw
         INTERFACE glad
+        INTERFACE glm
 )
 
 target_include_directories(

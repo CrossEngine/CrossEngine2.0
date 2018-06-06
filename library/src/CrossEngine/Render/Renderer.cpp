@@ -47,7 +47,7 @@ void CrossEngine::Render::Renderer::HandleEvent(const CrossEngine::Render::Event
 
 CrossEngine::Render::SharedShaderSource
 CrossEngine::Render::Renderer::LoadShaderSource(const CrossEngine::Util::String &name,
-                                                const CrossEngine::Util::String &source, GLenum type) {
+                                                const CrossEngine::Util::CharVector &source, GLenum type) {
     return nullptr;
 }
 
@@ -58,4 +58,8 @@ CrossEngine::Render::SharedShaderProgram CrossEngine::Render::Renderer::LoadShad
 
 void CrossEngine::Render::Renderer::AddRenderFunction(const CrossEngine::Render::RenderFunction &function) {
     renderFunctions.push_back(function);
+}
+
+CrossEngine::Render::RenderObject *CrossEngine::Render::Renderer::CreateRenderObject() {
+    return new CrossEngine::Render::RenderObject();
 }

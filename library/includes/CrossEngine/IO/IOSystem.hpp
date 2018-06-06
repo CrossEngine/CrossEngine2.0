@@ -6,8 +6,8 @@
  * Description: 
  * Copyright: CrossEngine (c) 2018
  ***************************************************************/
-#ifndef CROSSENGINE_BUILDNUMBER_IOSYSTEM_HPP
-#define CROSSENGINE_BUILDNUMBER_IOSYSTEM_HPP
+#ifndef CROSSENGINE_IOSYSTEM_HPP
+#define CROSSENGINE_IOSYSTEM_HPP
 
 #include <CrossEngine/config.h>
 #include <CrossEngine/Util/Util.hpp>
@@ -18,24 +18,58 @@
 
 namespace CrossEngine {
     namespace IO {
+        /**
+         *
+         */
         class IOSystem {
         private:
-            Logging::SharedLogger log;
+            Logging::SharedLogger log; /** */
         public:
+            /**
+             *
+             * \param init
+             */
             CrossEngineAPI explicit IOSystem(const char* init);
 
+            /**
+             *
+             */
             CrossEngineAPI ~IOSystem();
 
+            /**
+             *
+             * \return
+             */
             CrossEngineAPI Util::String GetWriteDir() const;
 
+            /**
+             *
+             * \param filename
+             * \return
+             */
             CrossEngineAPI bool Exists(const Util::String& filename);
 
+            /**
+             *
+             * \param filename
+             * \param mode
+             * \return
+             */
             CrossEngineAPI SharedIOFile Open(const Util::String& filename, OpenMode mode);
         };
 
+        /**
+         *
+         */
         typedef Util::Memory::Shared<IOSystem> SharedIOSystem;
 
 
+        /**
+         *
+         * \tparam Args
+         * \param args
+         * \return
+         */
         template <class ...Args>
         CrossEngineAPI SharedIOSystem CreateIOSystem(Args...args) {
             return Util::Memory::Allocate<IOSystem>(args...);
@@ -45,4 +79,4 @@ namespace CrossEngine {
 }
 
 
-#endif //CROSSENGINE_BUILDNUMBER_IOSYSTEM_HPP
+#endif //CROSSENGINE_IOSYSTEM_HPP

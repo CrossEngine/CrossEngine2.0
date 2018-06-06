@@ -9,11 +9,26 @@
 #ifndef CROSSENGINE_CONFIG_H
 #define CROSSENGINE_CONFIG_H
 
+/**
+ *
+ */
 #define CrossEngine_VERSION_MAJOR @CrossEngine_VERSION_MAJOR@
+/**
+ *
+ */
 #define CrossEngine_VERSION_MINOR @CrossEngine_VERSION_MINOR@
+/**
+ *
+ */
 #define CrossEngine_VERSION_PATCH @CrossEngine_VERSION_PATCH@
+/**
+ *
+ */
 #define CrossEngine_VERSION_BUILD @CrossEngine_VERSION_BUILD@
 
+/**
+ *
+ */
 #if defined (_WIN32)
 #if defined(CrossEngine_Library_Exports)
 #define  CrossEngineAPI __declspec(dllexport)
@@ -27,9 +42,28 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+/**
+ *
+ * \return
+ */
 unsigned int GetVersionMajor();
+
+/**
+ *
+ * \return
+ */
 unsigned int GetVersionMinor();
+
+/**
+ *
+ * \return
+ */
 unsigned int GetVersionPatch();
+
+/**
+ *
+ * \return
+ */
 unsigned int GetVersionBuild();
 #ifdef __cplusplus
 }

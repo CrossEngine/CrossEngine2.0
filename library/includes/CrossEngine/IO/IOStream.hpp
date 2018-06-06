@@ -6,8 +6,8 @@
  * Description: 
  * Copyright: CrossEngine (c) 2018
  ***************************************************************/
-#ifndef CROSSENGINE_BUILDNUMBER_IOSTREAM_HPP
-#define CROSSENGINE_BUILDNUMBER_IOSTREAM_HPP
+#ifndef CROSSENGINE_IOSTREAM_HPP
+#define CROSSENGINE_IOSTREAM_HPP
 
 #include <CrossEngine/config.h>
 #include <CrossEngine/Util/Util.hpp>
@@ -28,4 +28,4 @@ namespace CrossEngine {
 }
 
 
-#endif //CROSSENGINE_BUILDNUMBER_IOSTREAM_HPP
+#endif //CROSSENGINE_IOSTREAM_HPP

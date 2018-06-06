@@ -130,6 +130,14 @@ CrossEngine::Window::Window::Window(
     switch (api) {
         case API_OpenGL:
             glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
+#if defined(WIN32) || defined(__APPLE__)
+            glfwWindowHint(GLFW_CONTEXT_CREATION_API, GLFW_NATIVE_CONTEXT_API);
+#else
+            glfwWindowHint(GLFW_CONTEXT_CREATION_API, GLFW_OSMESA_CONTEXT_API);
+#endif
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
             break;
         case API_OpenGLES:
             glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
@@ -138,11 +146,32 @@ CrossEngine::Window::Window::Window(
             glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
             break;
     }
+    glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+    resourceContext = glfwCreateWindow(1, 1, "Resources", nullptr, nullptr);
+
     windowBus = eventBus;
     renderBus = CrossEngine::EventBus::CreateEventBus("RenderBus", windowBus);
     this->renderer = renderer;
-    glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-    resourceContext = glfwCreateWindow(1, 1, "Resources", nullptr, nullptr);
+
+    switch (api) {
+        case API_OpenGL:
+            glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
+#if defined(WIN32) || defined(__APPLE__)
+            glfwWindowHint(GLFW_CONTEXT_CREATION_API, GLFW_NATIVE_CONTEXT_API);
+#else
+            glfwWindowHint(GLFW_CONTEXT_CREATION_API, GLFW_OSMESA_CONTEXT_API);
+#endif
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+            break;
+        case API_OpenGLES:
+            glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
+            break;
+        case API_Vulkan:
+            glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+            break;
+    }
     window = glfwCreateWindow(width, height, name.c_str(), nullptr, resourceContext);
     if (IsValid()) {
         glfwShowWindow(window);
@@ -164,6 +193,8 @@ CrossEngine::Window::Window::Window(
         glfwSetWindowFocusCallback(window, WindowFocusCallback);
         glfwSetWindowIconifyCallback(window, WindowIconifyCallback);
         glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
+
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     }
     this->renderer->Create(this);
 }
@@ -221,13 +252,17 @@ void CrossEngine::Window::Window::PrivateRenderLoop() {
     paused = true;
     if (renderer->Setup(this)) {
         while (isRendering) {
-            if (paused) continue;
+            if (paused) {
+                std::this_thread::yield();
+                continue;
+            }
             now = CrossEngine::Util::Clock::Tick();
             delta = now - start;
             start = now;
 
             renderBus->Pulse();
-            renderer->Render(this, 0.0f);
+            glfwMakeContextCurrent(window);
+            renderer->Render(this, delta);
         }
         renderer->Teardown(this);
     }
@@ -247,7 +282,7 @@ CrossEngine::EventBus::EventBus::SharedEventBus CrossEngine::Window::Window::Get
 
 CrossEngine::Render::SharedShaderSource
 CrossEngine::Window::Window::LoadShaderSource(const CrossEngine::Util::String &name,
-                                              const CrossEngine::Util::String &source, GLenum type) {
+                                              const CrossEngine::Util::CharVector &source, GLenum type) {
     auto shader = GetShaderSource(name);
     if (shader) {
         return shader;
@@ -286,4 +321,13 @@ CrossEngine::Window::Window::GetShaderProgram(const CrossEngine::Util::String &n
         return nullptr;
     }
     return (*it).second;
+}
+
+CrossEngine::Render::RenderObject *CrossEngine::Window::Window::CreateRenderObject() {
+    return renderer->CreateRenderObject();
+}
+
+CrossEngine::Render::Model *CrossEngine::Window::Window::CompileRenderObject(CrossEngine::Render::RenderObject** pObject) {
+    glfwMakeContextCurrent(resourceContext);
+    return renderer->CompileRenderObject(pObject);
 }

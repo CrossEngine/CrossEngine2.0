@@ -17,17 +17,36 @@
 
 namespace CrossEngine {
     namespace Window {
+        /**
+         *
+         */
         class WindowManager {
         private:
-            Logging::SharedLogger log;
-            CrossEngine::EventBus::EventBus::SharedEventBus managerEventBus;
-            WindowVector windows;
+            Logging::SharedLogger log; /** */
+            CrossEngine::EventBus::EventBus::SharedEventBus managerEventBus; /** */
+            WindowVector windows; /** */
 
         public:
+            /**
+             *
+             * \param eventBus
+             */
             CrossEngineAPI explicit WindowManager(const CrossEngine::EventBus::EventBus::SharedEventBus& eventBus);
 
+            /**
+             *
+             */
             CrossEngineAPI ~WindowManager();
 
+            /**
+             *
+             * \tparam RendererType
+             * \param name
+             * \param width
+             * \param height
+             * \param api
+             * \return
+             */
             template <class RendererType>
             CrossEngineAPI SharedWindow NewWindow(const Util::String& name, int width, int height, RenderAPI api = API_OpenGL) {
                 auto window = CrossEngine::Window::CreateWindowT(
@@ -40,11 +59,24 @@ namespace CrossEngine {
                 return window;
             }
 
+            /**
+             *
+             * \return
+             */
             CrossEngineAPI bool Pulse();
         };
 
+        /**
+         *
+         */
         typedef Util::Memory::Shared<WindowManager> SharedWindowManager;
 
+        /**
+         *
+         * \tparam Args
+         * \param args
+         * \return
+         */
         template <class ...Args>
         CrossEngineAPI SharedWindowManager CreateWindowManager(Args...args) {
             return Util::Memory::Allocate<WindowManager>(args...);

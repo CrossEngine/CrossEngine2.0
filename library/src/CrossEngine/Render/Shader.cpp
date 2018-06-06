@@ -9,7 +9,7 @@
 #include <CrossEngine/Render/Shader.hpp>
 
 CrossEngine::Render::ShaderSource::ShaderSource(const CrossEngine::Util::String &name,
-                                                const CrossEngine::Util::String &source, unsigned int type) {
+                                                const CrossEngine::Util::CharVector &source, unsigned int type) {
     this->name = name;
     this->source = source;
     this->type = type;

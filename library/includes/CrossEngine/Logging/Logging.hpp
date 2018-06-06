@@ -17,12 +17,29 @@
 namespace CrossEngine {
     namespace Logging {
 
+        /**
+         *
+         */
         typedef std::shared_ptr<spdlog::logger> SharedLogger;
 
+        /**
+         *
+         */
         typedef Util::Containers::Vector<spdlog::sink_ptr> SinksVector;
 
+        /**
+         *
+         * \param name
+         * \return
+         */
         SharedLogger GetLogger(const Util::Containers::String& name);
 
+        /**
+         *
+         * \param name
+         * \param sinks
+         * \return
+         */
         SharedLogger GetLogger(const Util::Containers::String& name, const SinksVector& sinks);
 
     }

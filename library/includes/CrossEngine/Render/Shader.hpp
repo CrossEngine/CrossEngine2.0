@@ -15,35 +15,82 @@
 namespace CrossEngine {
     namespace Render {
 
+        typedef void* NativeShaderType;
+
+        /**
+         *
+         */
         class ShaderSource {
         protected:
-            Util::String name;
-            Util::String source;
-            unsigned int type;
+            Util::String name; /** */
+            Util::CharVector source; /** */
+            unsigned int type; /** */
 
         public:
-            ShaderSource(const Util::String& name, const Util::String& source, unsigned int type);
+            /**
+             *
+             * \param name
+             * \param source
+             * \param type
+             */
+            CrossEngineAPI ShaderSource(const Util::String &name, const Util::CharVector &source, unsigned int type);
 
-            ~ShaderSource();
+            /**
+             *
+             */
+            CrossEngineAPI ~ShaderSource();
         };
 
-        typedef Util::Memory::Shared<ShaderSource> SharedShaderSource;
+        /**
+         *
+         */
+        typedef Util::Memory::Shared <ShaderSource> SharedShaderSource;
 
-        typedef Util::Containers::Vector<SharedShaderSource> ShaderSourceVector;
+        /**
+         *
+         */
+        typedef Util::Containers::Vector <SharedShaderSource> ShaderSourceVector;
 
-        typedef Util::Containers::UnorderedMap<Util::String, SharedShaderSource> ShaderSourceMap;
+        /**
+         *
+         */
+        typedef Util::Containers::UnorderedMap <Util::String, SharedShaderSource> ShaderSourceMap;
 
+        /**
+         *
+         */
         class ShaderProgram {
         public:
-            ShaderProgram(const ShaderSourceVector& sources);
+            /**
+             *
+             * \param sources
+             */
+            CrossEngineAPI explicit ShaderProgram(const ShaderSourceVector &sources);
 
-            ~ShaderProgram();
+            /**
+             *
+             */
+            CrossEngineAPI ~ShaderProgram();
+
+            CrossEngineAPI virtual NativeShaderType Bind() = 0;
+
+            CrossEngineAPI virtual void Unbind(NativeShaderType shader) = 0;
+
+            CrossEngineAPI virtual void Matrix4(const Util::String& name, Util::Math::Matrix4 matrix4) = 0;
+
+            CrossEngineAPI virtual void Matrix4v(const Util::String& name, Util::Math::Matrix4Vector matrix4) = 0;
 
         };
 
-        typedef Util::Memory::Shared<ShaderProgram> SharedShaderProgram;
+        /**
+         *
+         */
+        typedef Util::Memory::Shared <ShaderProgram> SharedShaderProgram;
 
-        typedef Util::Containers::UnorderedMap<Util::String, SharedShaderProgram> ShaderProgramMap;
+        /**
+         *
+         */
+        typedef Util::Containers::UnorderedMap <Util::String, SharedShaderProgram> ShaderProgramMap;
     }
 }
 
